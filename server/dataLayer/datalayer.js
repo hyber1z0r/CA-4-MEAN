@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var wiki = mongoose.model('wiki');
 var async = require('async');
 
-/* GET A User From The DataBase */
+/* Get a wikit title function */
 function getWikiTitle(title, callback) {
     wiki.find({title: title}, function (err, wiki) {
         if (err) {
@@ -15,6 +15,7 @@ function getWikiTitle(title, callback) {
     });
 }
 
+/* findWiki function*/
 function findWiki(searchString, callback) {
     wiki.find(
         {
@@ -39,6 +40,7 @@ function findWiki(searchString, callback) {
     );
 }
 
+/* Categories function*/
 function getCategories(callback) {
     wiki.find().distinct('categories', function (err, categories) {
         if (err) {
@@ -49,6 +51,7 @@ function getCategories(callback) {
     })
 }
 
+/* Getwikiswithcategory function is made */
 function getWikisWithCategory(category, callback) {
     wiki.find({categories: {$in: [category]}}, 'title abstract', function (err, wikis) {
         if (err) {
@@ -59,8 +62,11 @@ function getWikisWithCategory(category, callback) {
     })
 }
 
+
+/* Modules */
 module.exports.getWiki = getWikiTitle;
 module.exports.findWiki = findWiki;
 module.exports.getCategories = getCategories;
 module.exports.getWikisWithCategory = getWikisWithCategory;
 
+/* Geeks Joke : The test doesn't work. Its Karma.... */
