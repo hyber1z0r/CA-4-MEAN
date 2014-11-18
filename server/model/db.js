@@ -21,7 +21,7 @@ if( typeof global.TEST_DATABASE != "undefined" ) {
   dbURI = global.TEST_DATABASE;
 }
 else{
-  dbURI = 'mongodb://localhost/testdb';
+  dbURI = 'mongodb://localhost/wiki';
 }
 
 mongoose.connect(dbURI);
@@ -49,12 +49,14 @@ process.on('SIGINT', function() {
 
 /** User SCHEMA **/
 /** Replace this Schema with your own(s) **/
-var usersSchema = new mongoose.Schema({
-  userName : String,
-  email: {type: String, unique: true},
-  pw: String,
-  created: { type: Date, default: new Date() }
+var wikiSchema = new mongoose.Schema({
+  title : String,
+  url: String,
+  abstract: String,
+  categories: [String],
+  links: [String],
+  headings: [Heading]
 });
 
-mongoose.model( 'User', usersSchema,"testusers" );
+mongoose.model( 'wiki', wikiSchema,"wiki" );
 
