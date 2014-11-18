@@ -10,7 +10,6 @@ function getWiki(title, callback) {
         else {
             callback(null, wiki[0]);
         }
-
     });
 }
 
