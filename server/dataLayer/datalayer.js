@@ -35,7 +35,18 @@ function getCategories(callback) {
     })
 }
 
+function getWikisWithCategory(category, callback) {
+    wiki.find({categories: {$all:category}}, 'title abstract', function (err, wikis){
+        if (err){
+            callback();
+        }else{
+            callback(wikis);
+        }
+    })
+}
 
 module.exports.getWiki = getWikiTitle;
 module.exports.findWiki = findWiki;
+module.exports.getCategories = getCategories;
+module.exports.getWikisWithCategory = getWikisWithCategory;
 
