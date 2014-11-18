@@ -27,7 +27,7 @@ else{
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
-  console.log('Mongoose connected to ' + dbURI);
+  console.log('Mongoose connected to ' + dbURI + '\n');
 });
 
 mongoose.connection.on('error',function (err) {
@@ -55,7 +55,10 @@ var wikiSchema = new mongoose.Schema({
   abstract: String,
   categories: [String],
   links: [String],
-  headings: [Heading]
+  headings: {
+    heading: String,
+    position: Number
+  }
 });
 
 mongoose.model( 'wiki', wikiSchema,"wiki" );
