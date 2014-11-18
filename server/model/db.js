@@ -40,10 +40,10 @@ var wikiSchema = new mongoose.Schema({
     abstract: String,
     categories: [String],
     links: [String],
-    headings: {
+    headings: [{
         heading: String,
         position: Number
-    }
+    }]
 });
 
 mongoose.model('wiki', wikiSchema, "wiki");
