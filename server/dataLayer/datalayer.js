@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var wiki = mongoose.model('wiki');
+var async = require('async');
 
 /* GET A User From The DataBase */
 function getWikiTitle(title, callback) {
@@ -8,38 +9,51 @@ function getWikiTitle(title, callback) {
             callback();
         }
         else {
-            callback(wiki);
+            callback(wiki[0]);
         }
 
     });
 }
 
 function findWiki(searchString, callback) {
-    wiki.find({$all: new RegExp('^'+searchString+'$', "i")}, 'title abstract', function (err, wikis) {
-        if (err) {
-            callback();
-        } else {
-            console.log(wikis);
-            callback(wikis);
+    wiki.find(
+        {
+            $or: [
+                {title: {"$in": [new RegExp(searchString, "i")]}},
+                {url: {"$in": [new RegExp(searchString, "i")]}},
+                {abstract: {"$in": [new RegExp(searchString, "i")]}},
+                {categories: {"$in": [new RegExp(searchString, "i")]}},
+                {links: {"$in": [new RegExp(searchString, "i")]}},
+                {headings: {"$in": [new RegExp(searchString, "i")]}}
+            ]
+        }, 'title abstract', function (err, wikis) {
+            if (err) {
+                callback();
+            } else if (wikis.length == 0) {
+                callback();
+            }
+            else {
+                callback(wikis);
+            }
         }
-    })
+    );
 }
 
 function getCategories(callback) {
     wiki.find().distinct('categories', function (err, categories) {
-        if (err){
+        if (err) {
             callback();
-        }else {
+        } else {
             callback(categories);
         }
     })
 }
 
 function getWikisWithCategory(category, callback) {
-    wiki.find({categories: {$all:category}}, 'title abstract', function (err, wikis){
-        if (err){
+    wiki.find({categories: {$in: [category]}}, 'title abstract', function (err, wikis) {
+        if (err) {
             callback();
-        }else{
+        } else {
             callback(wikis);
         }
     })
