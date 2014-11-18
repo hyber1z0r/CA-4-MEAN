@@ -69,4 +69,3 @@ module.exports.findWiki = findWiki;
 module.exports.getCategories = getCategories;
 module.exports.getWikisWithCategory = getWikisWithCategory;
 
-/* Geeks Joke : The test doesn't work. Its Karma.... */
