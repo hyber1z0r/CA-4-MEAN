@@ -1,51 +1,120 @@
-//global.TEST_DATABASE = "mongodb://localhost/TestDataBase_xx1243";
-//
-//var should = require("should");
-//var app = require("../../server/app");
-//var http = require("http");
-//var testPort = 9999;
-//var testServer;
-//var mongoose = require("mongoose");
-//var User = mongoose.model("User");
-//
-//describe('REST API for /user', function () {
-//  //Start the Server before the TESTS
-//  before(function (done) {
-//    testServer = app.listen(testPort, function () {
-//      console.log("Server is listening on: " + testPort);
-//      done();
-//    })
-//    .on('error',function(err){
-//        console.log(err);
-//      });
-//  })
-//
-//  beforeEach(function(done){
-//    User.remove({}, function ()
-//    {
-//      var array = [{userName : "Lars", email :"lars@a.dk",pw: "xxx"},{userName : "Henrik", email :"henrik@a.dk",pw: "xxx"}];
-//      User.create(array,function(err){
-//        done();
-//      });
-//    });
-//  })
-//
-//  after(function(){  //Stop server after the test
-//    //Uncomment the line below to completely remove the database, leaving the mongoose instance as before the tests
-//    //mongoose.connection.db.dropDatabase();
-//    testServer.close();
-//  })
-//
-//  it("Should get 2 users; Lars and Henrik", function (done) {
-//    http.get("http://localhost:"+testPort+"/api/user",function(res){
-//      res.setEncoding("utf8");//response data is now a string
-//      res.on("data",function(chunk){
-//        var n = JSON.parse(chunk);
-//        n.length.should.equal(2);
-//        n[0].userName.should.equal("Lars");
-//        n[1].userName.should.equal("Henrik");
-//        done();
-//      });
-//    })
-//  });
-//});
+global.TEST_DATABASE = "mongodb://localhost/TestDataBase_yy1243";
+
+var should = require("should");
+var app = require("../../server/app");
+var mongoose = require("mongoose");
+var wiki = mongoose.model("wiki");
+var supertest = require('supertest');
+var testdata = require('./testdb');
+
+describe('REST API', function () {
+
+    /* Inserts test wikis in the test db */
+    beforeEach(function (done) {
+        testdata.insertWikis(function () {
+            done();
+        });
+    });
+
+    describe('for /wiki?title=', function () {
+        it('Should get 1 wiki; "Abu Dhabi"', function (done) {
+            supertest(app)
+                .get('/api/wiki?title=Abu+Dhabi')
+                .end(function (err, res) {
+                    var w = JSON.parse(res.text);
+                    w.title.should.equal('Abu Dhabi');
+                    w.should.have.property('url');
+                    w.should.have.property('abstract');
+                    w.should.have.property('categories');
+                    w.should.have.property('headings');
+                    w.should.have.property('links');
+                    done();
+                });
+        });
+
+        it('Should return with status 404 when not found', function (done) {
+            supertest(app)
+                .get('/api/wiki?title=ThisWillNotBeFound_XaSeWQsDEqSd')
+                .end(function (err, res) {
+                    res.statusCode.should.equal(404);
+                    var nf = JSON.parse(res.text);
+                    nf.status.should.equal('Not found');
+                    done();
+                });
+        });
+    });
+
+    describe('for /findWiki?q=', function () {
+        it('Should return with status 404 when nothing found', function (done) {
+            supertest(app)
+                .get('/api/findWiki?q=EOWQPOQJWEONQPWENOQP')
+                .end(function (err, res) {
+                    res.statusCode.should.equal(404);
+                    var nf = JSON.parse(res.text);
+                    nf.status.should.equal('Not found');
+                    done();
+                });
+        });
+
+        it('Should return 2 documents', function (done) {
+            supertest(app)
+                .get('/api/findWiki?q=science')
+                .end(function (err, res) {
+                    var ws = JSON.parse(res.text);
+                    ws.length.should.equal(2);
+                    ws[0].should.have.property('title');
+                    ws[0].should.not.have.property('url');
+                    ws[0].should.have.property('abstract');
+                    ws[0].should.not.have.property('categories');
+                    ws[0].should.not.have.property('headings');
+                    ws[0].should.not.have.property('links');
+                    done();
+                });
+        });
+    });
+
+    describe('for /categories and /categories?q=', function () {
+        it('Should return all categories (17)', function (done) {
+            supertest(app)
+                .get('/api/categories')
+                .end(function (err, res) {
+                    var cats = JSON.parse(res.text);
+                    cats.length.should.equal(17);
+                    done();
+                });
+        });
+
+        it('Should return two wikis objects', function (done) {
+           supertest(app)
+               .get('/api/categories?q=Austro-Asiatic+languages')
+               .end(function (err, res) {
+                   var ws = JSON.parse(res.text);
+                   ws.length.should.equal(2);
+                   done();
+               });
+        });
+
+        it('Should return with status 404 when nothing found', function (done) {
+            supertest(app)
+                .get('/api/categories?q=SADKAJDSAKL')
+                .end(function (err, res) {
+                    res.statusCode.should.equal(404);
+                    var nf = JSON.parse(res.text);
+                    nf.status.should.equal('Not found');
+                    done();
+                });
+        });
+
+        it('Should return all categories when search query is empty', function (done) {
+            supertest(app)
+                .get('/api/categories?q=')
+                .end(function (err, res) {
+                    res.statusCode.should.equal(200);
+                    var cats = JSON.parse(res.text);
+                    cats.length.should.equal(17);
+                    done();
+                });
+        });
+
+    });
+});
