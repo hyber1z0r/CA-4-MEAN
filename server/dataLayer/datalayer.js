@@ -63,11 +63,6 @@ function getWikisWithCategory(category, callback) {
 }
 
 
-<<<<<<< HEAD
-
-=======
-/* Modules */
->>>>>>> 5c8f8a37cfefdd03a2241d2e7a065f1c73645525
 module.exports.getWiki = getWikiTitle;
 module.exports.findWiki = findWiki;
 module.exports.getCategories = getCategories;
