@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myAppRename.view3', ['ngRoute'])
+angular.module('myAppRename.wikiCategory', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view3', {
-    templateUrl: 'app/view3/view3.html',
-    controller: 'View3Ctrl'
+  $routeProvider.when('/wikiCategory', {
+    templateUrl: 'app/wikiCategory/wikiCategory.html',
+    controller: 'wikiCategory'
   });
 }])
 
-.controller('View3Ctrl', function ($scope, $http) {
+.controller('wikiCategory', function ($scope, $http) {
     $http({
       method: 'GET',
       url: 'api/user'

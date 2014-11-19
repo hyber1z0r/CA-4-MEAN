@@ -9,7 +9,13 @@ angular.module('myAppRename.wikiList', ['ngRoute'])
   });
 }])
 
-.controller('WikiListCtrl',['$scope','InfoFactory','InfoService', function($scope,InfoFactory,InfoService) {
-    $scope.infoFactory = InfoFactory.getInfo();
-    $scope.infoService = InfoService.getInfo();
+.controller('WikiListCtrl',['$scope','wikiFactory', function($scope, wikiFactory) {
+       $scope.search = function () {
+            wikiFactory.findWiki($scope.searchTitle, function (err, data) {
+                $scope.wikis = data;
+                $scope.hasBeenSearched = true;
+            })
+        }
+
+
   }]);

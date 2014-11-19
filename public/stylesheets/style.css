@@ -9,5 +9,21 @@ a {
 
 .wikiListClass {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 100px;
+}
+
+.searchButton {
+    padding-top: 10px;
+    font-size: 2px;
+    text-align: center;
+    position: fixed;
+}
+
+input[placeholder]
+{
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
 }

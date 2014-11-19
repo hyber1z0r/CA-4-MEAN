@@ -1,5 +1,5 @@
-<h1>You are now in the Title Search function</h1>
-<div class="searchButton" ng-show="hasBeenSearched">
+<h1>You are now in the Category Search function</h1>
+<div class="searchButton">
     <button type="submit" ng-click="#" class="btn btn-primary">A</button>
     <button type="submit" ng-click="#" class="btn btn-primary">B</button>
     <button type="submit" ng-click="#" class="btn btn-primary">C</button>
@@ -30,14 +30,15 @@
     <button type="submit" ng-click="#" class="btn btn-primary">Ø</button>
     <button type="submit" ng-click="#" class="btn btn-primary">Å</button>
 </div>
+
 <div class="col-xs-6 col-md-4"></div>
 <div class="wikiListClass col-xs-6 col-md-4" >
-       <p style="color: #105cb6">
-        <input type="text" class="form-control" ng-model="searchTitle" placeholder="Enter title"/><br><br>
-        <button type="submit" ng-click="search()" class="btn btn-primary">Search</button>
-        <ul ng-repeat="wiki in wikis | orderBy:'title'" >
-            <li>{{wiki.title}}</li>
-        </ul>
+    <p style="color: #105cb6">
+        <input type="text" class="form-control" placeholder="Enter category"/><br><br>
+        <button type="submit" ng-click="#" class="btn btn-primary">Search</button>
+    <ol ng-repeat="">
+        <ul></ul>
+    </ol>
     </p>
 </div>
 <div class="col-xs-6 col-md-4"></div>

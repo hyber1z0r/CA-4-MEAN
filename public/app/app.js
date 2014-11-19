@@ -6,11 +6,11 @@ angular.module('myAppRename', [
   'myAppRename.controllers',
   'myAppRename.directives',
   'myAppRename.services',
-  'myAppRename.factories',
+  'Factories',
   'myAppRename.filters',
   'myAppRename.Home',
   'myAppRename.wikiList',
-  'myAppRename.view3'
+  'myAppRename.wikiCategory'
 ]).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/Home'});

@@ -66,7 +66,6 @@ function getWikisWithCategory(category, callback) {
 }
 
 
-module.exports.getWiki = getWikiTitle;
 /* Exported functions */
 module.exports.getWiki = getWiki;
 module.exports.findWiki = findWiki;

@@ -2,9 +2,9 @@
 
 
 /* Factories */
-var app = angular.module('wikiFactory', []);
+var app = angular.module('Factories', []);
 
-app.factory('WikiFactory', function ($http) {
+app.factory('wikiFactory', function ($http) {
 
     var getWiki = function (title, callback) {
         $http.get("http://localhost:3000/api/wiki?title=" + title)
