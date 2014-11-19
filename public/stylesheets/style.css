@@ -14,6 +14,7 @@ a {
 
 ul {
     text-align: left;
+
 }
 
 .searchButton {
@@ -27,9 +28,7 @@ input[placeholder] {
     text-align: center;
 }
 
-h1 {
-    text-align: center;
-}
+
 
 .outerDiv.ng-hide-remove {
     -webkit-transition: 0s linear all;

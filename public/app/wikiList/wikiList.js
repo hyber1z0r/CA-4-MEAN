@@ -11,10 +11,19 @@ angular.module('myAppRename.wikiList', ['ngRoute', 'ngAnimate'])
 
     .controller('WikiListCtrl', ['$scope', 'wikiFactory', '$timeout', function ($scope, wikiFactory, $timeout) {
         $scope.search = function () {
-            wikiFactory.findWiki($scope.searchTitle, function (err, data) {
-                $scope.wikis = data;
+            $scope.searching = true;
+            wikiFactory.findWiki($scope.searchString, function (err, data) {
+                if (err) $scope.error = 'There was an error: '+ err.status;
+                else if (data.length == 0) {
+                    $scope.notfound = 'Nothing matched your search for: ' + $scope.searchString;
+                } else {
+                    $scope.error = '';
+                    $scope.wikis = data;
+                }
+                $scope.searching = false;
             })
         };
+
         $scope.showIt = function (index) {
             $timeout(function () {
                 $scope.hovering = index;

@@ -1,17 +1,22 @@
 <div>
-<h4>Title: <a href="{{wiki.url}}" target="_blank">{{wiki.title}}</a></h4>
-<h3>Abstract:</h3> {{wiki.abstract}}
+    <h4>Title: <a href="{{wiki.url}}" target="_blank">{{wiki.title}}</a></h4>
+
+    <h3>Abstract:</h3> {{wiki.abstract}}
     <br>
-    <h4>Categories: </h4>
-    <ul ng-repeat="category in wiki.categories">
-        <li>{{category}}</li>
+    <h4>Categories:</h4>
+    <ul>
+        <li ng-repeat="category in wiki.categories">
+            {{category}}
+        </li>
     </ul>
-    <h4>Links: </h4>
-    <ul ng-repeat="link in wiki.links">
-        <li><a href="{{link}}" target="_blank">{{link}}</a></li>
+    <h4>Links:</h4>
+    <ul>
+        <li ng-repeat="link in wiki.links"><a href="{{link}}" target="_blank">{{link}}</a></li>
     </ul>
-    <h4>Headings: </h4>
-    <ul ng-repeat="heading in wiki.headings | orderBy:'heading.position'">
-        <li>{{heading.heading}}: {{heading.position}}</li>
-    </ul>
+    <h4>Table of Content:</h4>
+    <ol>
+        <li ng-repeat="heading in wiki.headings | orderBy:'position'">
+            {{heading.heading}}
+        </li>
+    </ol>
 </div>

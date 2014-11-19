@@ -12,9 +12,8 @@ app.factory('wikiFactory', function ($http) {
                 callback(null, data);
             })
             .error(function (err) {
-                return callback(err);
+                callback(err);
             });
-
     };
 
     var findWiki = function (search, callback) {
@@ -23,9 +22,8 @@ app.factory('wikiFactory', function ($http) {
                 callback(null, data);
             })
             .error(function (err) {
-                return callback(err);
+                callback(err);
             });
-
     };
 
     var allCategories = function (callback) {
@@ -34,24 +32,19 @@ app.factory('wikiFactory', function ($http) {
                 callback(null, data);
             })
             .error(function (err) {
-                return callback(err);
+                callback(err);
             });
-
     };
 
     var searchCategories = function (search, callback) {
-            $http.get("http://localhost:3000/api/categories?q=" + search)
-                .success(function (data) {
-                    callback(null, data);
-                })
-                .error(function (err) {
-                    return callback(err);
-                });
-
+        $http.get("http://localhost:3000/api/categories?q=" + search)
+            .success(function (data) {
+                callback(null, data);
+            })
+            .error(function (err) {
+                callback(err);
+            });
     };
-
-
-
 
     return {
         getWiki: getWiki,
@@ -59,4 +52,4 @@ app.factory('wikiFactory', function ($http) {
         allCategories: allCategories,
         searchCategories: searchCategories
     }
-  });
+});
