@@ -4,7 +4,7 @@ var should = require("should");
 var app = require("../../server/app");
 var mongoose = require("mongoose");
 var wiki = mongoose.model("wiki");
-var dataLayer = require('../../server/dataLayer/datalayer');
+var dataLayer = require('../../server/datalayer/datalayer');
 var testdata = require('./testdb');
 
 describe('Datalayer', function () {
@@ -18,9 +18,10 @@ describe('Datalayer', function () {
 
 
     describe('getWikis', function () {
-        it('should return the whole wiki', function (done) {
+        it('Should return a whole Wiki object', function (done) {
             var title = 'An American in Paris';
-            dataLayer.getWiki(title, function callback(document) {
+            dataLayer.getWiki(title, function callback(err, document) {
+                should.not.exist(err);
                 document.title.should.equal(title);
                 document.should.have.property('url');
                 document.should.have.property('abstract');
@@ -30,9 +31,11 @@ describe('Datalayer', function () {
                 done();
             })
         });
-        it('should be undefined when not found', function (done) {
+
+        it('Should be undefined, when not found', function (done) {
             var title = 'ajksdalkjdlaksjdaskjda';
-            dataLayer.getWiki(title, function callback(document) {
+            dataLayer.getWiki(title, function callback(err, document) {
+                should.not.exist(err);
                 (typeof document).should.equal('undefined');
                 done();
             })
@@ -40,24 +43,28 @@ describe('Datalayer', function () {
     });
 
     describe('findWiki', function () {
-        // this also test for duplicates, which there is, but is not returned. nice
         it('Should find 2 documents', function (done) {
             var search = 'science';
-            dataLayer.findWiki(search, function callback(documents) {
+            dataLayer.findWiki(search, function callback(err, documents) {
+                should.not.exist(err);
                 documents.length.should.equal(2);
                 done();
             });
         });
-        it('Should find 2 documents (CASE INSENSITIVE', function (done) {
+
+        it('Should find 2 documents (Case insensitive)', function (done) {
             var search = 'scIeNCe';
-            dataLayer.findWiki(search, function callback(documents) {
+            dataLayer.findWiki(search, function callback(err, documents) {
+                should.not.exist(err);
                 documents.length.should.equal(2);
                 done();
             });
         });
+
         it('Should be undefined when not found', function (done) {
             var search = 'asdasdadasdadasdasdasdasdadad';
-            dataLayer.findWiki(search, function callback(documents) {
+            dataLayer.findWiki(search, function callback(err, documents) {
+                should.not.exist(err);
                 (typeof documents).should.equal('undefined');
             });
             done();
@@ -66,7 +73,8 @@ describe('Datalayer', function () {
 
     describe('getCategories', function () {
         it('Should find 17 categories', function (done) {
-            dataLayer.getCategories(function callback(documents) {
+            dataLayer.getCategories(function callback(err, documents) {
+                should.not.exist(err);
                 documents.length.should.equal(17);
                 done();
             })
@@ -76,7 +84,8 @@ describe('Datalayer', function () {
     describe('getWikisWithCategory', function () {
         it('Should return 2 wiki objects', function (done) {
             var category = 'Austro-Asiatic languages';
-            dataLayer.getWikisWithCategory(category, function (documents) {
+            dataLayer.getWikisWithCategory(category, function callback(err, documents) {
+                should.not.exist(err);
                 documents.length.should.equal(2);
                 done();
             })

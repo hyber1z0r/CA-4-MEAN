@@ -1,24 +1,68 @@
 var express = require('express');
 var router = express.Router();
+var datalayer = require('../datalayer/datalayer');
 
-var mongoose = require('mongoose');
+/* Gets the wiki with the given title
+ * Uses queries, not params.
+ * So to run this, you need to go: /wiki?title=TITLEYOUSEARCH
+ * */
+router.get('/wiki', function (req, res) {
+    if (typeof global.mongo_error !== "undefined") return res.status(500).end('Error: ' + global.mongo_error);
+    datalayer.getWiki(req.query.title, function callback(err, data) {
+        if (err) return res.status(500).json({error: err.toString()});
+        // if the wiki was found
+        if (data) {
+            res.json(data);
+        } else { // if the wiki wasn't found and data is undefined
+            res.status(404).json({status: 'Not found'});
+        }
+    })
+});
 
-/* GET A User From The DataBase */
-router.get('/user', function(req, res) {
-  if(typeof global.mongo_error !== "undefined"){
-    res.status(500);
-    res.end("Error: "+global.mongo_error+" To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-    return;
-  }
-  user.find({}, function (err, users) {
-    if (err) {
-      res.status(err.status || 400);
-      res.end(JSON.stringify({error: err.toString()}));
-      return;
+/* Gets the wikis that matches the search string
+ * Search is done in querys, and not params
+ * e.g /findWiki?q=SEARCHSTRING
+ * */
+router.get('/findWiki', function (req, res) {
+    if (typeof global.mongo_error !== "undefined") return res.status(500).end('Error: ' + global.mongo_error);
+    datalayer.findWiki(req.query.q, function callback(err, data) {
+        if (err) return res.status(500).json({error: err.toString()});
+        // if the wikis was found
+        if (data) {
+            res.json(data);
+        } else { // if the wikis wasn't found and data is undefined
+            res.status(404).json({status: 'Not found'});
+        }
+    })
+});
+
+/* Gets all categories, if just /categories
+ *   Else if you search like findWiki with ?q=SEARCHSTRING
+ *   It gets all wikis with the category you searched for.
+ * */
+router.get('/categories', function (req, res) {
+    if (typeof global.mongo_error !== "undefined") return res.status(500).end('Error: ' + global.mongo_error);
+    if (req.query.q) {
+        datalayer.getWikisWithCategory(req.query.q, function callback(err, data) {
+            if (err) return res.status(500).json({error: err.toString()});
+            // if the wikis was found
+            if (data) {
+                res.json(data);
+            } else { // if the wikis wasn't found and data is undefined
+                res.status(404).json({status: 'Not found'});
+            }
+        })
+    } else {
+        datalayer.getCategories(function callback(err, data) {
+            if (err) return res.status(500).json({error: err.toString()});
+            // if the categories was found
+            if (data) {
+                res.json(data);
+            } else { // if the categories wasn't found and data is undefined
+                res.status(404).json({status: 'Not found'});
+            }
+        })
     }
-    res.header("Content-type","application/json");
-    res.end(JSON.stringify(users));
-  });
 });
 
 module.exports = router;
