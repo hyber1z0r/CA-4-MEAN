@@ -11,8 +11,9 @@ angular.module('myAppRename', [
   'myAppRename.filters',
   'myAppRename.Home',
   'myAppRename.wikiList',
-  'myAppRename.wikiCategory'
+  'myAppRename.wikiCategory',
+  'myAppRename.wikiDetail'
 ]).
 config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/Home'});
+    $routeProvider.otherwise({redirectTo: '/'});
 }]);

@@ -4,14 +4,7 @@
     <p style="color: #105cb6">
         <input type="text" class="form-control" ng-model="searchTitle" placeholder="Enter title"/><br><br>
         <button type="submit" ng-click="search()" class="btn btn-primary">Search</button>
-    <ul ng-repeat="wiki in wikis | orderBy:'title'">
-        <li> <span ng-mouseenter="showIt($index)" ng-mouseleave="hideIt(-1)">
-                <a ng-click="">{{wiki.title}}</a>
-            </span></li>
-        <div class="outerDiv" ng-show="$index == hovering">
-            <p>{{wiki.abstract}}</p>
-        </div>
-    </ul>
+        <div title-abstract></div>
     </p>
 </div>
 <div class="col-xs-6 col-md-4"></div>

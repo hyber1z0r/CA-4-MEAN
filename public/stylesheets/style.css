@@ -1,15 +1,19 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 .wikiListClass {
     text-align: center;
     padding-top: 100px;
+}
+
+ul {
+    text-align: left;
 }
 
 .searchButton {
@@ -19,8 +23,7 @@ a {
     position: fixed;
 }
 
-input[placeholder]
-{
+input[placeholder] {
     text-align: center;
 }
 
@@ -34,6 +37,7 @@ h1 {
     transition-delay: 0s;
     opacity: 0;
 }
+
 .outerDiv.ng-hide-remove.ng-hide-remove-active {
     opacity: 1;
 }

@@ -1,0 +1,9 @@
+<ul ng-repeat="wiki in wikis | orderBy:'title'">
+    <li><span ng-mouseenter="showIt($index)" ng-mouseleave="hideIt(-1)">
+                <a href="#/wikiDetails/{{wiki.title}}">{{wiki.title}}</a>
+            </span>
+    <div class="outerDiv" ng-show="$index == hovering">
+        <p>{{wiki.abstract}}</p>
+    </div>
+    </li>
+</ul>

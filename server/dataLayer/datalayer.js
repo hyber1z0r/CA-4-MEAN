@@ -65,7 +65,6 @@ function getWikisWithCategory(category, callback) {
     });
 }
 
-
 /* Exported functions */
 module.exports.getWiki = getWiki;
 module.exports.findWiki = findWiki;
