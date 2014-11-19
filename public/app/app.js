@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('myAppRename', [
   'ngRoute',
+  'ngAnimate',
   'myAppRename.controllers',
   'myAppRename.directives',
   'myAppRename.services',

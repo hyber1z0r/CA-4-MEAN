@@ -1,43 +1,17 @@
 <h1>You are now in the Title Search function</h1>
-<div class="searchButton" ng-show="hasBeenSearched">
-    <button type="submit" ng-click="#" class="btn btn-primary">A</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">B</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">C</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">D</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">E</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">F</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">G</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">H</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">I</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">J</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">K</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">L</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">M</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">N</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">O</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">P</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Q</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">R</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">S</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">T</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">U</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">V</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">W</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">X</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Y</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Z</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Æ</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Ø</button>
-    <button type="submit" ng-click="#" class="btn btn-primary">Å</button>
-</div>
 <div class="col-xs-6 col-md-4"></div>
-<div class="wikiListClass col-xs-6 col-md-4" >
-       <p style="color: #105cb6">
+<div class="wikiListClass col-xs-6 col-md-4">
+    <p style="color: #105cb6">
         <input type="text" class="form-control" ng-model="searchTitle" placeholder="Enter title"/><br><br>
         <button type="submit" ng-click="search()" class="btn btn-primary">Search</button>
-        <ul ng-repeat="wiki in wikis | orderBy:'title'" >
-            <li>{{wiki.title}}</li>
-        </ul>
+    <ul ng-repeat="wiki in wikis | orderBy:'title'">
+        <li> <span ng-mouseenter="showIt($index)" ng-mouseleave="hideIt(-1)">
+                <a ng-click="">{{wiki.title}}</a>
+            </span></li>
+        <div class="outerDiv" ng-show="$index == hovering">
+            <p>{{wiki.abstract}}</p>
+        </div>
+    </ul>
     </p>
 </div>
 <div class="col-xs-6 col-md-4"></div>

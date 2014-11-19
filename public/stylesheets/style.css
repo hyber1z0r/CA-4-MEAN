@@ -27,3 +27,13 @@ input[placeholder]
 h1 {
     text-align: center;
 }
+
+.outerDiv.ng-hide-remove {
+    -webkit-transition: 0s linear all;
+    transition: 0s linear all;
+    transition-delay: 0s;
+    opacity: 0;
+}
+.outerDiv.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
