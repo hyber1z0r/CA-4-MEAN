@@ -13,7 +13,8 @@ function getWiki(title, callback) {
     });
 }
 
-/* Returns all Wiki objects that matched the searchString, - searches in all properties. Otherwise undefined */
+/* Returns all Wiki objects title and abstract that matched the searchString,
+ - searches in all properties. Otherwise undefined */
 function findWiki(searchString, callback) {
     wiki.find(
         {
