@@ -28,4 +28,11 @@ angular.module('myAppRename.directives', [])
                 }
             });
         };
+    })
+    .directive('menuBar', function () {
+        return {
+            restrict: 'A',
+            replace: 'true',
+            templateUrl: '/app/components/templates/menubar.html'
+        }
     });

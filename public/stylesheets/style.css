@@ -28,8 +28,6 @@ input[placeholder] {
     text-align: center;
 }
 
-
-
 .outerDiv.ng-hide-remove {
     -webkit-transition: 0s linear all;
     transition: 0s linear all;
@@ -40,3 +38,18 @@ input[placeholder] {
 .outerDiv.ng-hide-remove.ng-hide-remove-active {
     opacity: 1;
 }
+
+div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav > div > ul {
+    text-align: center;
+}
+
+div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav > div > ul > li > a {
+    padding: 15px 5px;
+}
+
+div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav {
+    margin: 10px 0px;
+}
+
+
+/* End navigation bar styling. */
