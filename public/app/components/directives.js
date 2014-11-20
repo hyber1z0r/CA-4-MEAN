@@ -35,4 +35,11 @@ angular.module('myAppRename.directives', [])
             replace: 'true',
             templateUrl: '/app/components/templates/menubar.html'
         }
+    })
+    .directive('categoriesList', function () {
+        return {
+            restrict: 'A',
+            replace: 'true',
+            templateUrl: '/app/components/templates/categories.html'
+        }
     });

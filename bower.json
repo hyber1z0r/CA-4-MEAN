@@ -13,5 +13,10 @@
     "angular-animate": "latest",
     "html5-boilerplate": "~4.3.0",
     "bootstrap": "~3.3.0"
+  },
+  "devDependencies": {
+    "ui-bootstrap": "~0.12.0",
+    "angular-bootstrap": "~0.12.0",
+    "angular-ui-bootstrap": "~0.12.0"
   }
 }

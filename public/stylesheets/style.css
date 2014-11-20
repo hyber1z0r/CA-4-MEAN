@@ -9,7 +9,7 @@ a {
 
 .wikiListClass {
     text-align: center;
-    padding-top: 100px;
+    padding-top: 0px;
 }
 
 ul {
@@ -39,16 +39,21 @@ input[placeholder] {
     opacity: 1;
 }
 
-div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav > div > ul {
+nav > div > ul {
     text-align: center;
+    padding-left: 22px;
 }
 
 div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav > div > ul > li > a {
-    padding: 15px 5px;
+    padding: 15px 4px;
 }
 
-div.wikiListClass.col-xs-6.col-md-6.ng-scope > nav {
-    margin: 10px 0px;
+.A-Z {
+    margin: 0px 0px;
+    padding: 0px;
+    position: fixed;
+    border-collapse: collapse;
+    z-index: 1000;
 }
 
 

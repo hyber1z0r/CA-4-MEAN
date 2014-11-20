@@ -1,0 +1,9 @@
+<div>
+    <h1 id="{{letters[$index]}}">{{letters[$index]}}</h1>
+    <ul>
+        <li ng-repeat="cat in arr">
+            {{cat}}
+        </li>
+    </ul>
+    <pagination num-pages="numPages()" current-page="currentPage" max-size="maxSize" boundary-links="true"></pagination>
+</div>
