@@ -28,6 +28,22 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
                 result.push(arr);
             }
             $scope.cats = result;
+
+            $scope.filteredCats;
+            $scope.currentPage = 1;
+            $scope.numPerPage = 10;
+            $scope.maxSize = 5;
+
+            $scope.numPages = function () {
+                return Math.ceil($scope.cats[0].length / $scope.numPerPage);
+            };
+
+            $scope.$watch('currentPage + numPerPage', function() {
+                var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                    , end = begin + $scope.numPerPage;
+
+                $scope.filteredCats = $scope.cats[0].slice(begin, end);
+            });
         });
 
         $scope.scrollTo = function(id) {
@@ -38,21 +54,6 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
             $location.hash(old);
         };
 
-        $scope.filteredCats;
-        $scope.currentPage = 1;
-        $scope.numPerPage = 10;
-        $scope.maxSize = 5;
-
-        $scope.numPages = function () {
-            return Math.ceil($scope.cats.length / $scope.numPerPage);
-        };
-
-        $scope.$watch('currentPage + numPerPage', function() {
-            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-                , end = begin + $scope.numPerPage;
-
-            $scope.filteredCats = $scope.cats.slice(begin, end);
-        });
     });
 
 
