@@ -7,7 +7,7 @@ var app = angular.module('Factories', []);
 app.factory('wikiFactory', function ($http) {
 
     var getWiki = function (title, callback) {
-        $http.get("http://localhost:3000/api/wiki?title=" + title)
+        $http.get("/api/wiki?title=" + title)
             .success(function (data) {
                 callback(null, data);
             })
@@ -17,7 +17,7 @@ app.factory('wikiFactory', function ($http) {
     };
 
     var findWiki = function (search, callback) {
-        $http.get("http://localhost:3000/api/findWiki?q=" + search)
+        $http.get("/api/findWiki?q=" + search)
             .success(function (data) {
                 callback(null, data);
             })
@@ -27,7 +27,7 @@ app.factory('wikiFactory', function ($http) {
     };
 
     var allCategories = function (callback) {
-        $http.get("http://localhost:3000/api/categories")
+        $http.get("/api/categories")
             .success(function (data) {
                 callback(null, data);
             })
@@ -37,7 +37,7 @@ app.factory('wikiFactory', function ($http) {
     };
 
     var searchCategories = function (search, callback) {
-        $http.get("http://localhost:3000/api/categories?q=" + search)
+        $http.get("/api/categories?q=" + search)
             .success(function (data) {
                 callback(null, data);
             })
