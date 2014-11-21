@@ -9,26 +9,38 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
         });
     }])
 
-    .controller('wikiCategory', function ($scope, wikiFactory, $location, $anchorScroll) {
+    .controller('wikiCategory', function ($scope, wikiFactory, $location, $anchorScroll, myCache) {
         var alphabet = [
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
         ];
 
         $scope.letters = alphabet.slice(0, alphabet.length - 10);
-
         $scope.loaded = false;
-        wikiFactory.allCategories(function (err, data) {
+        var cache = myCache.get('myData');
+        if (cache) {
+            $scope.cats = cache;
             $scope.loaded = true;
-            var allcats = data.splice(1, data.length);
-            var result = [];
-            for (var i = 0; i < alphabet.length; i++) {
-                var arr = allcats.filter(function (e) {
-                    return e.charAt(0) == alphabet[i];
-                });
-                result.push(arr);
-            }
-            $scope.cats = result;
+        }
+        else {
 
+            wikiFactory.allCategories(function (err, data) {
+                $scope.loaded = true;
+                var allcats = data.splice(1, data.length);
+                var result = [];
+                for (var i = 0; i < alphabet.length; i++) {
+                    var arr = allcats.filter(function (e) {
+                        return e.charAt(0) == alphabet[i];
+                    });
+                    result.push(arr);
+                }
+
+                $scope.cats = result;
+                myCache.put('myData', result);
+
+            });
+        }
+
+        $scope.$watch('cats', function () {
             $scope.filteredCats;
             $scope.currentPage = 1;
             $scope.numPerPage = 10;
@@ -45,6 +57,7 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
                 $scope.filteredCats = $scope.cats[0].slice(begin, end);
             });
         });
+
 
         $scope.scrollTo = function(id) {
             var old = $location.hash();
