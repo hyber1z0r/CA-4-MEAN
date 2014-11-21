@@ -18,4 +18,9 @@ angular.module('myAppRename.wikiDetail', ['ngRoute', 'ngAnimate'])
                 $scope.wiki = data;
             })
         }
+
+        $scope.goBack = function() {
+            window.history.back();
+        };
   }]);
+
