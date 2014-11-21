@@ -18,7 +18,7 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
         $scope.temp = function (letter) {
             $scope.filteredArray = allcats.filter(function (e) {
                 if(letter != '#') return e.charAt(0) == letter;
-                return e.charAt(0) == new RegExp("[0-9]");
+                return e.charAt(0).match(new RegExp("[0-9]"));
 
             });
             ready();
