@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var datalayer = require('../datalayer/datalayer');
+var datalayer = require('../dataLayer/datalayer');
 
 /* Gets the wiki with the given title
  * Uses queries, not params.
