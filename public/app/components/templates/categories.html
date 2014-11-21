@@ -1,9 +1,17 @@
 <div>
     <h1 id="{{letters[$index]}}">{{letters[$index]}}</h1>
-    <ul>
+<!--    <ul>
         <li ng-repeat="cat in filteredCats">
             {{cat}}
         </li>
-    </ul>
-    <pagination num-pages="numPages()" ng-model="currentPage" max-size="maxSize" boundary-links="true"></pagination>
+    </ul>-->
+    <accordion>
+     <accordion-group heading="{{cat}}" ng-repeat="cat in filteredCats" ng-click="getTitles(cat)">
+         <div ng-repeat="cont in content">
+             <a href="#/wikiDetails/{{cont.title}}">{{cont.title}}</a>
+         </div>
+    </accordion-group>
+    </accordion>
+    <pagination total-items="filteredArray.length" num-pages="numPages()" ng-model="currentPage" max-size="maxSize" boundary-links="true"></pagination>
 </div>
+
