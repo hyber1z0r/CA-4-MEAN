@@ -13,59 +13,61 @@ angular.module('myAppRename.wikiCategory', ['ngRoute', 'ui.bootstrap'])
         var alphabet = [
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
         ];
-
         $scope.letters = alphabet.slice(0, alphabet.length - 10);
-        $scope.loaded = false;
-        var cache = myCache.get('myData');
-        if (cache) {
-            $scope.cats = cache;
-            $scope.loaded = true;
-        }
-        else {
 
-            wikiFactory.allCategories(function (err, data) {
-                $scope.loaded = true;
-                var allcats = data.splice(1, data.length);
-                var result = [];
-                for (var i = 0; i < alphabet.length; i++) {
-                    var arr = allcats.filter(function (e) {
-                        return e.charAt(0) == alphabet[i];
-                    });
-                    result.push(arr);
-                }
-
-                $scope.cats = result;
-                myCache.put('myData', result);
+        $scope.temp = function (letter) {
+            $scope.filteredArray = allcats.filter(function (e) {
+                if(letter != '#') return e.charAt(0) == letter;
+                return e.charAt(0) == new RegExp("[0-9]");
 
             });
+            ready();
         }
 
-        $scope.$watch('cats', function () {
+        var ready = function () {
             $scope.filteredCats;
             $scope.currentPage = 1;
             $scope.numPerPage = 10;
             $scope.maxSize = 5;
 
             $scope.numPages = function () {
-                return Math.ceil($scope.cats[0].length / $scope.numPerPage);
+                return Math.ceil($scope.filteredArray.length / $scope.numPerPage);
             };
 
-            $scope.$watch('currentPage + numPerPage', function() {
+            $scope.$watch('currentPage + numPerPage + filteredArray', function() {
                 var begin = (($scope.currentPage - 1) * $scope.numPerPage)
                     , end = begin + $scope.numPerPage;
 
-                $scope.filteredCats = $scope.cats[0].slice(begin, end);
+                $scope.filteredCats = $scope.filteredArray.slice(begin, end);
             });
-        });
+        }
+        var allcats;
+        $scope.loaded = false;
+        var cache = myCache.get('myData');
+        if (cache) {
+            allcats = cache;
+            $scope.loaded = true;
+            $scope.temp('A');
+
+        }
+        else {
+            wikiFactory.allCategories(function (err, data) {
+                $scope.loaded = true;
+                allcats = data.splice(1, data.length);
+                myCache.put('myData', allcats);
+                $scope.temp('A');
+
+            });
+        }
+        
+         $scope.getTitles = function (cat) {
+             wikiFactory.searchCategories(cat, function (err, data) {
+                 $scope.content = data;
+             })
+         }
 
 
-        $scope.scrollTo = function(id) {
-            var old = $location.hash();
-            $location.hash(id);
-            $anchorScroll();
-            //reset to old to keep any additional routing logic from kicking in
-            $location.hash(old);
-        };
+
 
     });
 
